@@ -1,0 +1,32 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+    int testCases,num,i;
+    char arrayOfInt[10];
+    int count = 0;
+    
+    scanf("%d", &testCases);
+    while (testCases--)
+    {
+        count = 0;
+        scanf("%d", &num);
+        // convert the integer to a string
+        sprintf(arrayOfInt, "%d", num);
+
+        for (i = 0; arrayOfInt[i] != '\0'; i++)
+        {
+            if (arrayOfInt[i] == '4')
+                count++;
+        }
+
+        printf("%d\n", count);
+    }
+    
+    return 0;
+}
+
