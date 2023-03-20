@@ -1,0 +1,67 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int numberOfMatches(char num)
+{
+	switch (num)
+	{
+	case '0':
+		return 6;
+	case '1':
+		return 2;
+	case '2':
+		return 5;
+	case '3':
+		return 5;
+	case '4':
+		return 4;
+	case '5':
+		return 5;
+	case '6':
+		return 6;
+	case '7':
+		return 3;
+	case '8':
+		return 7;
+	case '9':
+		return 6;
+	default:
+		printf("Incorrect Number!\n");
+		break;
+	}
+}
+
+
+
+int main()
+{
+	int t;
+	int input1, input2;
+	int result,lenghtInput1,lenghtInput2;
+	char arrayOfInt[10];
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+		int totalMatches = 0;
+		scanf("%d %d", &input1, &input2);
+		result = input1 + input2;
+
+		// convert the integer to a string
+		sprintf(arrayOfInt, "%d", result);
+
+		for (int i = 0; i < strlen(arrayOfInt); i++)
+			totalMatches += numberOfMatches(arrayOfInt[i]);
+
+		printf("%d\n", totalMatches);
+
+	}
+    
+    return 0;
+}
+
+
