@@ -1,0 +1,49 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 1000
+
+int countDiferentNum(int array[], int sizeArray)
+{
+	int i;
+	int freqArray[MAX_SIZE + 1] = { 0 }; // to count the frequency of each element
+	int maxFrequent=0, maxNum = 0; // to store the most frequent element
+	for (i = 0; i < sizeArray; i++)
+	{
+		freqArray[array[i]]++;
+		if (freqArray[array[i]] > maxFrequent)
+		{
+			maxFrequent = freqArray[array[i]];
+			maxNum = array[i];
+		}
+
+	}
+	return sizeArray - maxFrequent; // number of elements different from the most frequent one
+}
+int main()
+{
+	int t;
+	int arraySize;
+	int arrayNum[MAX_SIZE];
+	int result;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+		scanf("%d", &arraySize);
+		for (int i = 0; i < arraySize; i++)
+			scanf("%d", &arrayNum[i]);
+
+		result = countDiferentNum(arrayNum, arraySize);
+
+		printf("%d\n", result);
+
+	}
+
+	return 0;
+}
+ 
