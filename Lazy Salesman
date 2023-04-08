@@ -1,0 +1,65 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main()
+{
+	int t;
+	int* arrayNum = NULL;
+	int arraySize;
+	int rupees;
+
+	int i, j;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+
+		scanf("%d %d", &arraySize, &rupees);
+		arrayNum = (int*)calloc(arraySize, sizeof(int));
+
+		for (i = 0; i < arraySize; i++)
+			scanf("%d", &arrayNum[i]);
+
+		// sort array
+		int swapArray;
+		for (i = 0; i < arraySize; i++)
+			for (j = i + 1; j < arraySize; j++)
+			{
+				if (arrayNum[j] < arrayNum[i])
+				{
+					swapArray = arrayNum[j];
+					arrayNum[j] = arrayNum[i];
+					arrayNum[i] = swapArray;
+				}
+
+			}
+
+		
+		for(i=0;i<arraySize;i++)
+			printf("%d ", arrayNum[i]);
+
+
+		int sumArray = 0;
+		int elementsArray = 0;
+		
+		
+			for (i = arraySize - 1; i >= 0; i--)
+			{
+				sumArray += arrayNum[i];
+				elementsArray++;
+				if (sumArray >= rupees)
+					break;
+			}	
+		
+		printf("%d\n", arraySize - elementsArray);
+
+	}
+
+	free(arrayNum);
+	return 0;
+}
