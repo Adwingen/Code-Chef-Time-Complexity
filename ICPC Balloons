@@ -1,0 +1,63 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main()
+{
+	int t;
+	int* arrayNum = NULL;
+	int arraySize;
+	int ballons;
+
+	int i, j;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+
+		scanf("%d", &arraySize);
+		arrayNum = (int*)calloc(arraySize, sizeof(int));
+
+		for (i = 0; i < arraySize; i++)
+			scanf("%d", &arrayNum[i]);
+		
+		int count = 0;
+		ballons = 7;
+		
+		while (ballons != 0)
+		{
+			for (i = 0; i < arraySize; i++)
+			{
+				for (j = 1; j <= 7; j++)
+				{
+					if (arrayNum[i] == j)
+					{
+						ballons--;
+					}
+					
+				}
+				if (ballons == 0)
+				{
+					count++;
+					break;
+				}
+				else
+					count++;
+
+			}
+
+		}
+	
+		
+		
+		printf("%d\n", count);
+
+	}
+
+	free(arrayNum);
+	return 0;
+}
