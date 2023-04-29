@@ -1,0 +1,102 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+void heapify(int* arrayNum, int n, int i) 
+{
+	int largest = i;
+	int lefth = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (lefth < n && arrayNum[lefth] > arrayNum[largest])
+		largest = lefth;
+
+	if (right < n && arrayNum[right] > arrayNum[largest])
+		largest = right;
+
+	if (largest != i) 
+	{
+		int temp = arrayNum[i];
+		arrayNum[i] = arrayNum[largest];
+		arrayNum[largest] = temp;
+		heapify(arrayNum, n, largest);
+	}
+}
+
+void heapSort(int* arrayNum, int n) 
+{
+	for (int i = n / 2 - 1; i >= 0; i--)
+		heapify(arrayNum, n, i);
+
+	for (int i = n - 1; i >= 0; i--) 
+	{
+		int temp = arrayNum[0];
+		arrayNum[0] = arrayNum[i];
+		arrayNum[i] = temp;
+		heapify(arrayNum, i, 0);
+	}
+}
+
+
+void findMinMaxInArrayByReferrence(int* arr, int size, int* minValue, int* maxValue)
+{
+	int i;
+	*minValue = arr[0];
+	*maxValue = arr[0];
+	for (i = 1; i < size; i++)
+	{
+		if (arr[i] < *minValue)
+			*minValue = arr[i];
+		if (arr[i] > *maxValue)
+			*maxValue = arr[i];
+	}
+}
+
+int main()
+{
+	int t;
+	int* arrayNum = NULL;
+	int sizeArray;
+	int maximumNumberOfOperations;
+	int minimumValue, maximumValue;
+
+	int i,j,k;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+		scanf("%d %d", &sizeArray, &maximumNumberOfOperations);
+
+		arrayNum = (int*)calloc(sizeArray, sizeof(int));
+
+		for (i = 0; i < sizeArray; i++)
+			scanf("%d", &arrayNum[i]);
+
+		
+		//find min/max value
+		findMinMaxInArrayByReferrence(arrayNum, sizeArray, &minimumValue, &maximumValue);
+		
+		//sort array with heap sort
+		heapSort(arrayNum, sizeArray);
+
+		//change the min to max
+		for (i = 0; i < maximumNumberOfOperations && i < sizeArray; i++)
+		{
+			if (arrayNum[i] < maximumValue)
+				arrayNum[i] = maximumValue;
+		}
+		
+		//find min/max value
+		findMinMaxInArrayByReferrence(arrayNum, sizeArray, &minimumValue, &maximumValue);
+
+		printf("%d\n", minimumValue);
+		free(arrayNum);
+	}
+
+	
+	return 0;
+}
