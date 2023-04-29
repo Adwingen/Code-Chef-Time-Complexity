@@ -1,0 +1,86 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+void heapify(int* arrayNum, int n, int i) 
+{
+	int largest = i;
+	int lefth = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (lefth < n && arrayNum[lefth] > arrayNum[largest])
+		largest = lefth;
+
+	if (right < n && arrayNum[right] > arrayNum[largest])
+		largest = right;
+
+	if (largest != i) 
+	{
+		int temp = arrayNum[i];
+		arrayNum[i] = arrayNum[largest];
+		arrayNum[largest] = temp;
+		heapify(arrayNum, n, largest);
+	}
+}
+
+void heapSort(int* arrayNum, int n) 
+{
+	for (int i = n / 2 - 1; i >= 0; i--)
+		heapify(arrayNum, n, i);
+
+	for (int i = n - 1; i >= 0; i--) 
+	{
+		int temp = arrayNum[0];
+		arrayNum[0] = arrayNum[i];
+		arrayNum[i] = temp;
+		heapify(arrayNum, i, 0);
+	}
+}
+
+int main()
+{
+	int t;
+	int* arrayNum = NULL;
+	int sizeArray;
+
+	int i;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+		scanf("%d", &sizeArray);
+
+		arrayNum = (int*)calloc(sizeArray, sizeof(int));
+
+		for (i = 0; i < sizeArray; i++)
+			scanf("%d", &arrayNum[i]);
+
+		
+		//sort array with heap sort
+		heapSort(arrayNum, sizeArray);
+
+		//iterate the array to find the condicion is valid
+		int isValid = 1;
+		for (i = 0; i < sizeArray-1; i++)
+		{
+			if (abs(arrayNum[i] - arrayNum[i + 1]) <= 1)
+				isValid++;
+			else
+				isValid--;
+		}
+		
+		//print the result
+		if (isValid == sizeArray)
+			printf("YES\n");
+		else
+			printf("NO\n");
+
+		free(arrayNum);
+	}
+
+	return 0;
+}
