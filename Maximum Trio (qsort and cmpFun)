@@ -1,0 +1,51 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int cmpfunc(const void* a, const void* b)
+{
+	return (*(int*)a - *(int*)b);
+}
+
+
+int main()
+{
+	int t;
+	long int* arrayNum = NULL;
+	long int sizeArray;
+
+	int i;
+
+	scanf("%d", &t);
+
+	while (t--)
+	{
+		scanf("%ld", &sizeArray);
+
+		arrayNum = (long int*)calloc(sizeArray, sizeof(long int));
+
+		for (i = 0; i < sizeArray; i++)
+			scanf("%ld", &arrayNum[i]);
+
+
+		//sort de the array with qsort
+		qsort(arrayNum, sizeArray, sizeof(long int), cmpfunc);
+
+	
+		//iterate the array to find the max/min
+		//find second max
+		long int firstMaximum = arrayNum[sizeArray - 1];
+		long int minimum = arrayNum[0];
+		long int secondMaximum = arrayNum[sizeArray - 2];
+
+		printf("%ld\n", (firstMaximum - minimum) * secondMaximum);
+
+
+		free(arrayNum);
+	}
+
+	return 0;
+}
